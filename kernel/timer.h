@@ -7,3 +7,4 @@ void timer_handle_interrupt();
 
 uint64_t timer_get_ms();
 uint64_t timer_get_s();
+uint64_t timer_get_interrupt_count();

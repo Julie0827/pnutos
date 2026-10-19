@@ -21,9 +21,11 @@ void timer_init(uint32_t frequency);
 void timer_handle_interrupt();
 uint64_t timer_get_ms();
 uint64_t timer_get_s();
+uint64_t timer_get_interrupt_count();
 ```
 
 - `timer_init()` - initializes the timer
 - `timer_handle_interrupt()` - handles a timer interrupt and sets the next deadline
 - `timer_get_ms()` - returns elapsed time in milliseconds
 - `timer_get_s()` - returns elapsed time in seconds
+- `timer_get_interrupt_count()` - returns the timer interrupt count

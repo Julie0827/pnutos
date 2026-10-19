@@ -3,6 +3,7 @@
 #include "banner.h"
 #include "kprintf.h"
 #include "panic.h"
+#include "plic.h"
 #include "timer.h"
 
 enum interrupt_code {
@@ -56,6 +57,10 @@ static void handle_interrupt(uint64_t code) {
   switch (code) {
     case INTERRUPT_SUPERVISOR_TIMER:
       timer_handle_interrupt();
+      break;
+
+    case INTERRUPT_SUPERVISOR_EXTERNAL:
+      plic_handle_interrupt();
       break;
 
     default:

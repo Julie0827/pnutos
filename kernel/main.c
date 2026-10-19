@@ -4,6 +4,7 @@
 #include "memory.h"
 #include "monitor.h"
 #include "page.h"
+#include "plic.h"
 #include "timer.h"
 #include "uart.h"
 
@@ -19,6 +20,11 @@ void kernel_main(unsigned long hart_id, const void *dtb) {
   page_init();
 
   timer_init(dtb_info.timebase_frequency);
+  interrupt_enable_timer();
+
+  plic_init();
+  interrupt_enable_external();
+  uart_enable_rx_interrupt();
 
   diagnostics_print(hart_id);
 

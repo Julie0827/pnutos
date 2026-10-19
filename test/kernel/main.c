@@ -3,6 +3,7 @@
 #include "interrupt.h"
 #include "memory.h"
 #include "page.h"
+#include "plic.h"
 #include "test.h"
 #include "test/config.h"
 #include "timer.h"
@@ -31,6 +32,11 @@ void kernel_main(unsigned long hart_id, const void *dtb) {
   page_init();
 
   timer_init(dtb_info.timebase_frequency);
+  interrupt_enable_timer();
+
+  plic_init();
+  interrupt_enable_external();
+  uart_enable_rx_interrupt();
 
   banner_title("PnutOS Test Suite");
 
