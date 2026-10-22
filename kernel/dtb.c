@@ -147,8 +147,8 @@ struct dtb_info dtb_parse(const void *dtb) {
   const uint8_t *end = ptr + dtb_get_struct_size(dtb);
   const uint8_t *strings = dtb_get_strings(dtb);
 
-  struct dtb_state state = {0};
-  struct dtb_info info = {0};
+  struct dtb_state state = {};
+  struct dtb_info info = {};
 
   while (end - ptr >= 4) {
     switch (read_token(&ptr)) {

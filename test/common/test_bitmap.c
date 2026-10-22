@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 static void test_bitmap_set() {
-  uint8_t bitmap[2] = {0};
+  uint8_t bitmap[2] = {};
 
   bitmap_set(bitmap, 0);
   KASSERT(bitmap[0] == 0x01);
