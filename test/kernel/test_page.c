@@ -1,5 +1,5 @@
-#include "kassert.h"
-#include "page.h"
+#include "kernel/kassert.h"
+#include "kernel/page.h"
 #include "string.h"
 #include "test.h"
 

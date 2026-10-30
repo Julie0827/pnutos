@@ -1,4 +1,4 @@
-#include "kprintf.h"
+#include "kernel/kprintf.h"
 #include "test.h"
 
 static void test_kprintf_basic() {

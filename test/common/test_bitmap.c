@@ -1,5 +1,5 @@
 #include "bitmap.h"
-#include "kassert.h"
+#include "kernel/kassert.h"
 #include "test.h"
 
 #include <stdint.h>

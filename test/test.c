@@ -1,6 +1,6 @@
 #include "test.h"
-#include "kprintf.h"
-#include "uart.h"
+#include "kernel/kprintf.h"
+#include "kernel/uart.h"
 
 #define PASS_COLOR ANSI_GREEN
 #define MANUAL_COLOR ANSI_YELLOW

@@ -1,13 +1,13 @@
-#include "banner.h"
-#include "dtb.h"
-#include "interrupt.h"
-#include "memory.h"
-#include "page.h"
-#include "plic.h"
+#include "config.h"
+#include "kernel/banner.h"
+#include "kernel/dtb.h"
+#include "kernel/interrupt.h"
+#include "kernel/memory.h"
+#include "kernel/page.h"
+#include "kernel/plic.h"
+#include "kernel/timer.h"
+#include "kernel/uart.h"
 #include "test.h"
-#include "test/config.h"
-#include "timer.h"
-#include "uart.h"
 
 #include <stdint.h>
 

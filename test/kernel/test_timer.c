@@ -1,6 +1,6 @@
-#include "kassert.h"
+#include "kernel/kassert.h"
+#include "kernel/timer.h"
 #include "test.h"
-#include "timer.h"
 
 static void test_timer_ms() {
   uint64_t start = timer_get_ms();

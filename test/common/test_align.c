@@ -1,5 +1,5 @@
 #include "align.h"
-#include "kassert.h"
+#include "kernel/kassert.h"
 #include "test.h"
 
 static void test_align_up_addr() {

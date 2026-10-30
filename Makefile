@@ -52,7 +52,7 @@ $(BUILD)/%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD)/test/%.o: CFLAGS += -Itest -Ikernel -I.
+$(BUILD)/test/%.o: CFLAGS += -I. -Itest
 
 $(KERNEL): $(OBJS) $(LDSCRIPT)
 	$(CC) $(LDFLAGS) $(OBJS) -o $@
