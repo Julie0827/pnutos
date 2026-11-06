@@ -11,6 +11,14 @@ PnutOS uses Sv39, a RISC-V virtual memory mode with a 39-bit virtual address spa
 - VPN bits per level: `9`
 - Page offset bits: `12`
 
+### Supported Page Sizes
+
+| Level | Page size | Type |
+|---|---|---|
+| 0 | 4 KiB | Page |
+| 1 | 2 MiB | Superpage |
+| 2 | 1 GiB | Superpage |
+
 ## Virtual Address
 
 ```text
@@ -56,12 +64,28 @@ PnutOS uses Sv39, a RISC-V virtual memory mode with a 39-bit virtual address spa
 
 ## Software Interface
 
+### Types
+
+```c
+typedef uint64_t pte_t;
+
+#define PAGE_TABLE_ENTRY_COUNT (PAGE_SIZE / sizeof(pte_t))
+
+typedef pte_t page_table_t[PAGE_TABLE_ENTRY_COUNT];
+```
+
+- `pte_t` - represents a page table entry
+- `page_table_t` - represents a page table
+
+### Functions
+
 ```c
 page_table_t *page_table_alloc();
 
-bool page_table_map(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, pte_t flags);
+bool page_table_map(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, size_t level,
+                    pte_t flags);
 bool page_table_map_range(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, size_t size,
-                          pte_t flags);
+                          size_t level, pte_t flags);
 
 bool page_table_unmap(page_table_t *root, uintptr_t vaddr);
 bool page_table_unmap_range(page_table_t *root, uintptr_t vaddr, size_t size);
@@ -72,9 +96,9 @@ void page_table_free(page_table_t *root);
 ```
 
 - `page_table_alloc()` - allocates a zero-initialized page table
-- `page_table_map()` - maps a virtual page to a physical page with the specified flags
-- `page_table_map_range()` - maps a range of virtual pages to physical pages
-- `page_table_unmap()` - removes a page mapping and frees empty intermediate page tables
-- `page_table_unmap_range()` - removes mappings for a range of pages
-- `page_table_translate()` - translates a virtual address to a physical address
-- `page_table_free()` - frees all page tables in the hierarchy, including the root
+- `page_table_map()` - maps a virtual page to a physical page at the specified level with the specified flags
+- `page_table_map_range()` - maps a range of virtual pages to physical pages at the specified level with the specified flags; either maps the entire range or leaves all mappings unchanged
+- `page_table_unmap()` - removes a page mapping, automatically determining its level, and frees empty intermediate page tables
+- `page_table_unmap_range()` - removes mappings for a range of pages, automatically determining their levels, and frees empty intermediate page tables; either unmaps the entire range or leaves all mappings unchanged
+- `page_table_translate()` - translates a virtual address to a physical address, automatically determining the mapping level
+- `page_table_free()` - frees all page tables in the hierarchy, including the root, without freeing the mapped physical pages

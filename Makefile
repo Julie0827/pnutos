@@ -15,11 +15,14 @@ CFLAGS := \
 LDSCRIPT := linker.ld
 LDFLAGS := -nostdlib -T $(LDSCRIPT)
 
+MEM ?= 128M
+
 QEMU := qemu-system-riscv64
 QEMUFLAGS := -machine virt \
 	-cpu rv64,sstc=true \
 	-bios none \
 	-smp 1 \
+	-m $(MEM) \
 	-nographic
 
 ifeq ($(DEBUG),1)

@@ -21,9 +21,10 @@ typedef pte_t page_table_t[PAGE_TABLE_ENTRY_COUNT];
 
 page_table_t *page_table_alloc();
 
-bool page_table_map(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, pte_t flags);
+bool page_table_map(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, size_t level,
+                    pte_t flags);
 bool page_table_map_range(page_table_t *root, uintptr_t vaddr, uintptr_t paddr, size_t size,
-                          pte_t flags);
+                          size_t level, pte_t flags);
 
 bool page_table_unmap(page_table_t *root, uintptr_t vaddr);
 bool page_table_unmap_range(page_table_t *root, uintptr_t vaddr, size_t size);

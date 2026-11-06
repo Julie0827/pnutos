@@ -22,3 +22,4 @@ void test_parser();
 void test_page();
 void test_heap();
 void test_timer();
+void test_page_table();

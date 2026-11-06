@@ -13,19 +13,33 @@ struct memory_info {
 };
 
 static struct memory_info memory;
+static struct memory_size formatted_size;
 
 void memory_init(uint64_t base, uint64_t size) {
   memory.base = base;
   memory.size = size;
+
+  uint64_t val = size / (1024 * 1024);
+  bool is_gib = val >= 1024 && val % 1024 == 0;
+
+  if (is_gib) val /= 1024;
+
+  formatted_size.val = val;
+  formatted_size.unit = is_gib ? "GiB" : "MiB";
 }
 
 uint64_t memory_get_end() {
   return memory.base + memory.size;
 }
 
+struct memory_size memory_get_formatted_size() {
+  return formatted_size;
+}
+
 void memory_print_info(const char *prefix) {
   kprintf("%skernel: %p - %p\n", prefix, kernel_start, kernel_end);
   kprintf("%sstack: %p - %p\n", prefix, stack_bottom, stack_top);
-  kprintf("%sram: %p - %p (%lu MiB)\n", prefix, (void *)(uintptr_t)memory.base,
-          (void *)(uintptr_t)memory_get_end(), memory.size / (1024 * 1024));
+  kprintf("%sram: %p - %p (%lu %s)\n", prefix, (void *)(uintptr_t)memory.base,
+          (void *)(uintptr_t)memory_get_end(), (unsigned long)formatted_size.val,
+          formatted_size.unit);
 }

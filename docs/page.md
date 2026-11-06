@@ -62,8 +62,10 @@ Freed pages are returned to the free list. Invalid frees are detected, and the b
 void page_init();
 void *page_alloc();
 void page_free(void *ptr);
+size_t page_free_count();
 ```
 
 - `page_init()` - initializes the physical page allocator
 - `page_alloc()` - allocates a physical page
 - `page_free()` - frees a physical page
+- `page_free_count()` - returns the number of free physical pages

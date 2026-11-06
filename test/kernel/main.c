@@ -2,6 +2,7 @@
 #include "kernel/banner.h"
 #include "kernel/dtb.h"
 #include "kernel/interrupt.h"
+#include "kernel/kprintf.h"
 #include "kernel/memory.h"
 #include "kernel/page.h"
 #include "kernel/plic.h"
@@ -39,6 +40,10 @@ void kernel_main(unsigned long hart_id, const void *dtb) {
   uart_enable_rx_interrupt();
 
   banner_title("PnutOS Test Suite");
+
+  struct memory_size size = memory_get_formatted_size();
+
+  kprintf("RAM: %lu %s\r\n\r\n", (unsigned long)size.val, size.unit);
 
   banner_subtitle("Common");
 
@@ -86,6 +91,11 @@ void kernel_main(unsigned long hart_id, const void *dtb) {
   test_timer();
   interrupt_disable();
   test_pass("timer");
+#endif
+
+#if TEST_ALL || TEST_PAGE_TABLE
+  test_page_table();
+  test_pass("page table");
 #endif
 
   banner_summary("All tests passed!");

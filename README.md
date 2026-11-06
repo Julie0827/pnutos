@@ -69,10 +69,27 @@ QEMU is set to run directly in the terminal instead of opening a separate window
 > [!NOTE]
 > To exit QEMU, press <kbd>Ctrl</kbd> + <kbd>A</kbd>, release the keys, then press <kbd>X</kbd>.
 
+PnutOS runs with 128 MiB of RAM by default. You can change the RAM size using `MEM` (`M` for MiB or `G` for GiB).
+
+For example:
+
+```bash
+make run MEM=512M
+make run MEM=2G
+```
+
 To build PnutOS and run the test suite in QEMU, run:
 
 ```bash
 make test
+```
+
+To test with a different RAM size, you can use `MEM` just like with `make run`.
+
+For example:
+
+```bash
+make test MEM=2G
 ```
 
 To remove all generated build files, run:

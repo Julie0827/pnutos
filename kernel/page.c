@@ -5,7 +5,6 @@
 #include "memory.h"
 #include "string.h"
 
-#include <stddef.h>
 #include <stdint.h>
 
 extern char stack_top[];
@@ -15,6 +14,7 @@ struct free_page {
 };
 
 static struct free_page *free_list;
+static size_t free_page_count;
 
 static uintptr_t bitmap_addr;
 static uint8_t *bitmap;
@@ -50,6 +50,7 @@ void page_init() {
 
     page->next = free_list;
     free_list = page;
+    free_page_count++;
 
     bitmap_set(bitmap, page_index(page));
   }
@@ -61,6 +62,7 @@ void *page_alloc() {
   struct free_page *page = free_list;
 
   free_list = page->next;
+  free_page_count--;
 
   bitmap_clear(bitmap, page_index(page));
   memset(page, 0, PAGE_SIZE);
@@ -90,6 +92,11 @@ void page_free(void *ptr) {
 
   page->next = free_list;
   free_list = page;
+  free_page_count++;
 
   bitmap_set(bitmap, page_index(page));
+}
+
+size_t page_free_count() {
+  return free_page_count;
 }

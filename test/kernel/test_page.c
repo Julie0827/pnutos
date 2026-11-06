@@ -10,12 +10,14 @@ static void test_page_alloc() {
   enum { COUNT = 10 };
 
   void *pages[COUNT];
+  size_t initial_free_count = page_free_count();
 
   for (size_t i = 0; i < COUNT; i++) {
     pages[i] = page_alloc();
 
     KASSERT(pages[i] != NULL);
     KASSERT((uintptr_t)pages[i] % PAGE_SIZE == 0);
+    KASSERT(page_free_count() == initial_free_count - i - 1);
 
     for (size_t j = 0; j < i; j++) {
       KASSERT(pages[i] != pages[j]);
@@ -24,6 +26,8 @@ static void test_page_alloc() {
 
   for (size_t i = 0; i < COUNT; i++) {
     page_free(pages[i]);
+
+    KASSERT(page_free_count() == initial_free_count - COUNT + i + 1);
   }
 }
 
@@ -65,7 +69,11 @@ static void test_page_zeroed() {
 }
 
 void test_page() {
+  size_t initial_free_count = page_free_count();
+
   test_page_alloc();
   test_page_reuse();
   test_page_zeroed();
+
+  KASSERT(page_free_count() == initial_free_count);
 }
