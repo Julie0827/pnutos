@@ -4,7 +4,7 @@ The physical page allocator manages allocatable physical pages.
 
 ## Configuration
 
-- Page size: `4096` bytes
+- Page size: `4096` bytes (4 KiB)
 
 ## Memory Layout
 
@@ -59,6 +59,8 @@ Freed pages are returned to the free list. Invalid frees are detected, and the b
 ## Software Interface
 
 ```c
+#define PAGE_SIZE 4096
+
 void page_init();
 void *page_alloc();
 void page_free(void *ptr);

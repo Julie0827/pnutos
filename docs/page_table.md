@@ -64,6 +64,18 @@ PnutOS uses Sv39, a RISC-V virtual memory mode with a 39-bit virtual address spa
 
 ## Software Interface
 
+### Constants
+
+```c
+#define PTE_R (1 << 1)
+#define PTE_W (1 << 2)
+#define PTE_X (1 << 3)
+#define PTE_U (1 << 4)
+#define PTE_G (1 << 5)
+#define PTE_A (1 << 6)
+#define PTE_D (1 << 7)
+```
+
 ### Types
 
 ```c
@@ -96,8 +108,8 @@ void page_table_free(page_table_t *root);
 ```
 
 - `page_table_alloc()` - allocates a zero-initialized page table
-- `page_table_map()` - maps a virtual page to a physical page at the specified level with the specified flags
-- `page_table_map_range()` - maps a range of virtual pages to physical pages at the specified level with the specified flags; either maps the entire range or leaves all mappings unchanged
+- `page_table_map()` - maps a virtual page to a physical page at the specified level with the specified flags; automatically sets the valid bit
+- `page_table_map_range()` - maps a range of virtual pages to physical pages at the specified level with the specified flags; automatically sets the valid bit for each mapping; either maps the entire range or leaves all mappings unchanged
 - `page_table_unmap()` - removes a page mapping, automatically determining its level, and frees empty intermediate page tables
 - `page_table_unmap_range()` - removes mappings for a range of pages, automatically determining their levels, and frees empty intermediate page tables; either unmaps the entire range or leaves all mappings unchanged
 - `page_table_translate()` - translates a virtual address to a physical address, automatically determining the mapping level

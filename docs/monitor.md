@@ -14,7 +14,7 @@ pnut>
 - Backspace support
 - Whitespace-separated arguments
 - Maximum input length: `LINE_MAX` (`128`)
-- Maximum argument count: `ARGV_MAX` (`16`)
+- Maximum arguments: `ARGV_MAX` (`16`)
 
 ## Commands
 
@@ -32,3 +32,5 @@ pnut>
 ```c
 void monitor_run();
 ```
+
+- `monitor_run()` - runs the interactive kernel monitor

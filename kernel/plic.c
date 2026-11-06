@@ -1,6 +1,8 @@
 #include "plic.h"
 #include "uart.h"
 
+#include <stdint.h>
+
 #define PLIC_BASE 0x0C000000UL
 
 #define PLIC_PRIORITY(id) (PLIC_BASE + 4 * (id))

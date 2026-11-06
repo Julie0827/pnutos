@@ -19,6 +19,7 @@ Elapsed time is tracked since timer initialization using the hardware `time` cou
 ```c
 void timer_init(uint32_t frequency);
 void timer_handle_interrupt();
+
 uint64_t timer_get_ms();
 uint64_t timer_get_s();
 uint64_t timer_get_interrupt_count();
@@ -28,4 +29,4 @@ uint64_t timer_get_interrupt_count();
 - `timer_handle_interrupt()` - handles a timer interrupt and sets the next deadline
 - `timer_get_ms()` - returns elapsed time in milliseconds
 - `timer_get_s()` - returns elapsed time in seconds
-- `timer_get_interrupt_count()` - returns the timer interrupt count
+- `timer_get_interrupt_count()` - returns the number of timer interrupts handled

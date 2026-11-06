@@ -40,6 +40,8 @@ UART output is handled using polling. `uart_putchar()` waits until the transmit 
 ```c
 void uart_init();
 void uart_enable_rx_interrupt();
+void uart_handle_interrupt();
+
 void uart_putchar(char c);
 void uart_puts(const char *s);
 char uart_getchar();
@@ -47,6 +49,7 @@ char uart_getchar();
 
 - `uart_init()` - initializes the UART
 - `uart_enable_rx_interrupt()` - enables receive interrupts
+- `uart_handle_interrupt()` - handles UART interrupts
 - `uart_putchar()` - writes a character
 - `uart_puts()` - writes a null-terminated string
 - `uart_getchar()` - reads a character
